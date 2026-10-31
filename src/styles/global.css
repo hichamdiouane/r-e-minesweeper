@@ -1,0 +1,399 @@
+/* ------------------------------------------------------------------
+   Classic Windows 9x inspired theme, drawn entirely in CSS.
+   No images, fonts or other assets are copied from any other game.
+   ------------------------------------------------------------------ */
+
+:root {
+  --desktop: #0f7b7a;
+  --desktop-dark: #0a5c5b;
+  --face: #c0c0c0;
+  --face-light: #dfdfdf;
+  --shadow: #808080;
+  --deep: #6b6b6b;
+  --white: #ffffff;
+  --board: #bdbdbd;
+  --board-line: #7b7b7b;
+  --ink: #101010;
+
+  --num-1: #0000ff;
+  --num-2: #008000;
+  --num-3: #ff0000;
+  --num-4: #000080;
+  --num-5: #800000;
+  --num-6: #008080;
+  --num-7: #000000;
+  --num-8: #808080;
+
+  --ui-font: "Segoe UI", Tahoma, Verdana, "MS Sans Serif", sans-serif;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--ui-font);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 50% 0%, #14908f 0%, var(--desktop) 45%, var(--desktop-dark) 100%);
+  background-attachment: fixed;
+  padding: 24px 16px 40px;
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  width: min(100%, 1060px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ---------- Heading ---------- */
+
+.app-header {
+  text-align: center;
+  color: #f4fffe;
+  text-shadow: 1px 1px 0 #06403f;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* ---------- Buttons ---------- */
+
+.win-button {
+  font-family: var(--ui-font);
+  font-size: 0.82rem;
+  line-height: 1.2;
+  padding: 5px 12px;
+  color: var(--ink);
+  background: var(--face);
+  border: 2px solid;
+  border-color: var(--white) var(--shadow) var(--shadow) var(--white);
+  box-shadow: inset -1px -1px 0 var(--deep), inset 1px 1px 0 var(--face-light);
+  cursor: pointer;
+  user-select: none;
+}
+
+.win-button:hover {
+  background: #cacaca;
+}
+
+.win-button:active {
+  border-color: var(--shadow) var(--white) var(--white) var(--shadow);
+  box-shadow: inset 1px 1px 0 var(--deep);
+}
+
+.win-button[aria-pressed="true"] {
+  border-color: var(--shadow) var(--white) var(--white) var(--shadow);
+  box-shadow: inset 1px 1px 0 var(--deep);
+  font-weight: 700;
+}
+
+.win-button:disabled {
+  color: var(--shadow);
+  text-shadow: 1px 1px 0 var(--white);
+  cursor: not-allowed;
+}
+
+:where(button, input):focus-visible {
+  outline: 2px dotted #000000;
+  outline-offset: 2px;
+}
+
+.difficulty-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  padding: 6px;
+  background: var(--face);
+  border: 2px solid;
+  border-color: var(--white) var(--shadow) var(--shadow) var(--white);
+}
+
+/* ---------- Custom board form ---------- */
+
+.custom-panel {
+  width: min(100%, 420px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--face);
+  border: 2px solid;
+  border-color: var(--white) var(--shadow) var(--shadow) var(--white);
+}
+
+.custom-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.custom-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.78rem;
+  flex: 1 1 90px;
+}
+
+.custom-fields input {
+  font-family: var(--ui-font);
+  font-size: 0.9rem;
+  padding: 4px 6px;
+  width: 100%;
+  background: var(--white);
+  border: 2px solid;
+  border-color: var(--shadow) var(--white) var(--white) var(--shadow);
+}
+
+.custom-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.custom-hint,
+.custom-error {
+  margin: 0;
+  font-size: 0.75rem;
+}
+
+.custom-error {
+  color: #a00000;
+  font-weight: 600;
+}
+
+/* ---------- Game window ---------- */
+
+.game-window {
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px;
+  background: var(--face);
+  border: 3px solid;
+  border-color: var(--white) var(--shadow) var(--shadow) var(--white);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 8px;
+  margin-bottom: 8px;
+  border: 2px solid;
+  border-color: var(--shadow) var(--white) var(--white) var(--shadow);
+}
+
+.counter {
+  display: flex;
+  gap: 1px;
+  padding: 2px 3px;
+  background: #050505;
+  border: 2px solid;
+  border-color: var(--shadow) var(--white) var(--white) var(--shadow);
+}
+
+.digit {
+  display: block;
+  width: 15px;
+  height: 27px;
+}
+
+.segment-on {
+  fill: #ff2b2b;
+}
+
+.segment-off {
+  fill: rgba(255, 43, 43, 0.1);
+}
+
+.face-button {
+  width: 42px;
+  height: 42px;
+  padding: 2px;
+  display: grid;
+  place-items: center;
+  background: var(--face);
+  border: 2px solid;
+  border-color: var(--white) var(--shadow) var(--shadow) var(--white);
+  cursor: pointer;
+}
+
+.face-button:active {
+  border-color: var(--shadow) var(--white) var(--white) var(--shadow);
+}
+
+.smiley {
+  display: block;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+}
+
+/* ---------- Board ---------- */
+
+.board-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 2px;
+  border: 2px solid;
+  border-color: var(--shadow) var(--white) var(--white) var(--shadow);
+  background: var(--face);
+}
+
+.board {
+  --cell: clamp(14px, calc((100vw - 140px) / var(--cols)), 28px);
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  grid-auto-rows: var(--cell);
+  width: fit-content;
+  background: var(--board);
+}
+
+.cell {
+  width: var(--cell);
+  height: var(--cell);
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ui-font);
+  font-weight: 700;
+  font-size: calc(var(--cell) * 0.62);
+  line-height: 1;
+  color: var(--ink);
+  background: var(--board);
+  border: 2px solid;
+  border-color: var(--white) var(--board-line) var(--board-line) var(--white);
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.cell.hidden:hover {
+  background: #c8c8c8;
+}
+
+.cell.hidden:active {
+  border-color: var(--board-line) var(--white) var(--white) var(--board-line);
+}
+
+.cell.revealed {
+  border: 0;
+  box-shadow: inset 1px 1px 0 var(--board-line);
+  background: var(--board);
+}
+
+.cell.exploded {
+  background: #ff0000;
+}
+
+.cell.wrong {
+  background: var(--board);
+}
+
+.cell-number {
+  display: block;
+  transform: translateY(-0.02em);
+  pointer-events: none;
+}
+
+.cell.n1 { color: var(--num-1); }
+.cell.n2 { color: var(--num-2); }
+.cell.n3 { color: var(--num-3); }
+.cell.n4 { color: var(--num-4); }
+.cell.n5 { color: var(--num-5); }
+.cell.n6 { color: var(--num-6); }
+.cell.n7 { color: var(--num-7); }
+.cell.n8 { color: var(--num-8); }
+
+.icon {
+  display: block;
+  width: 82%;
+  height: 82%;
+  pointer-events: none;
+}
+
+/* ---------- Footer / status ---------- */
+
+.status-line {
+  margin: 0;
+  min-height: 1.2em;
+  color: #eafffe;
+  font-size: 0.9rem;
+  text-shadow: 1px 1px 0 #06403f;
+  text-align: center;
+}
+
+.help {
+  max-width: 620px;
+  margin: 0;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #eafffe;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.help p {
+  margin: 0;
+}
+
+.help p + p {
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 14px 8px 28px;
+  }
+
+  .toolbar {
+    gap: 6px;
+  }
+
+  .digit {
+    width: 12px;
+    height: 22px;
+  }
+
+  .help {
+    font-size: 0.72rem;
+  }
+}
